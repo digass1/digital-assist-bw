@@ -1,3 +1,10 @@
+const SUPABASE_URL = 'https://yyhvnheiuntuivgzucxx.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_UzvQvmDTe7AvQIjdNqbiuQ__VxgSaRu';
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
 let selected={name:'',price:0};
 let orders=JSON.parse(localStorage.getItem('dabw_orders')||'[]');
 
