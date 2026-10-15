@@ -18,6 +18,39 @@ supabaseClient
         }
     });
 
+async function loadServices() {
+    const grid = document.getElementById('services-grid');
+
+    const { data, error } = await supabaseClient
+        .from('services')
+        .select('id, name, description, price')
+        .eq('active', true)
+        .order('id');
+
+    if (error) {
+        console.error('Could not load services:', error.message);
+        grid.innerHTML = '<p>Services could not be loaded. Please try again later.</p>';
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        grid.innerHTML = '<p>No services are available yet.</p>';
+        return;
+    }
+
+    grid.innerHTML = data.map(service => `
+        <div class="card">
+            <h3>${service.name}</h3>
+            <p>${service.description || ''}</p>
+            <button class="btn" onclick="chooseService('${service.name.replace(/'/g, "\\'")}', ${service.price})">
+                From P${Number(service.price).toFixed(2)}
+            </button>
+        </div>
+    `).join('');
+}
+
+loadServices();
+
 let selected={name:'',price:0};
 let orders=JSON.parse(localStorage.getItem('dabw_orders')||'[]');
 
