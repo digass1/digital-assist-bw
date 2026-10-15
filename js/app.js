@@ -5,6 +5,19 @@ const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
+
+supabaseClient
+    .from('services')
+    .select('id, name, price')
+    .eq('active', true)
+    .then(({ data, error }) => {
+        if (error) {
+            console.error('Supabase connection test failed:', error.message);
+        } else {
+            console.log('Supabase connection successful!', data);
+        }
+    });
+
 let selected={name:'',price:0};
 let orders=JSON.parse(localStorage.getItem('dabw_orders')||'[]');
 
