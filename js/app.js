@@ -78,9 +78,32 @@ function openModal(type){
  const o=orders[orders.length-1];
  box.innerHTML=`<div style="text-align:center"><div style="font-size:52px">🎉</div><h2>Payment Successful!</h2><p>Your request has been received.</p><div class="notice success"><strong>Order #${o.id}</strong><br>${o.service} — P${o.amount}<br>Status: PAID / PROCESSING</div><button class="btn" onclick="closeModal();showDashboard()">View my order</button></div>`;
  }
- if(type==='login'){
- box.innerHTML=`<h2>Customer Login</h2><p class="muted">This prototype uses a demo account — full authentication comes in the next build.</p><div class="field"><label>Email</label><input value="demo@digitalassistbw.co.bw"></div><div class="field"><label>Password</label><input type="password" value="demo1234"></div><div class="actions"><button class="btn ghost" onclick="closeModal()">Cancel</button><button class="btn" onclick="closeModal();showDashboard()">Login to demo</button></div>`;
- }
+ 
+if(type==='login'){
+ box.innerHTML=`
+   <h2>Customer Login</h2>
+   <p class="muted">Sign in or create your Digital Assist BW account.</p>
+
+   <div class="field">
+     <label for="auth-email">Email</label>
+     <input id="auth-email" type="email" placeholder="you@example.com" autocomplete="email" required>
+   </div>
+
+   <div class="field">
+     <label for="auth-password">Password</label>
+     <input id="auth-password" type="password" placeholder="At least 6 characters" autocomplete="current-password" required>
+   </div>
+
+   <p id="auth-message" class="muted" role="status"></p>
+
+   <div class="actions">
+     <button class="btn ghost" onclick="closeModal()">Cancel</button>
+     <button class="btn ghost" onclick="registerCustomer()">Create account</button>
+     <button class="btn" onclick="loginCustomer()">Login</button>
+   </div>
+ `;
+}
+
  if(type==='how'){
  box.innerHTML=`<h2>How Digital Assist BW works</h2><p>1. Choose a service.</p><p>2. Submit your request.</p><p>3. Pay securely.</p><p>4. We process your request.</p><p>5. Track the status and receive your completed work.</p><div class="actions"><button class="btn" onclick="closeModal()">Got it</button></div>`;
  }
