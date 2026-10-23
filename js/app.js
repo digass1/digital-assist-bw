@@ -124,3 +124,59 @@ function showDashboard(){
  if(!orders.length){box.innerHTML='<div class="card"><h3>No orders yet</h3><p class="muted">Choose a service to create your first order.</p><button class="btn" onclick="showHome()">Browse services</button></div>';return}
  box.innerHTML='<div class="card" style="padding:0;overflow:auto"><table><thead><tr><th>Order</th><th>Service</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead><tbody>'+orders.map(o=>`<tr><td><strong>${o.id}</strong></td><td>${o.service}</td><td>P${o.amount}</td><td><span class="status processing">${o.status}</span></td><td>${o.date}</td></tr>`).join('')+'</tbody></table></div>';
 }
+
+async function registerCustomer() {
+    const email = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const message = document.getElementById('auth-message');
+
+    if (!email || password.length < 6) {
+        message.textContent = 'Enter a valid email and a password of at least 6 characters.';
+        return;
+    }
+
+    message.textContent = 'Creating your account...';
+
+    const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+        message.textContent = error.message;
+        return;
+    }
+
+    if (data.session) {
+        message.textContent = 'Account created successfully!';
+    } else {
+        message.textContent = 'Account created. Check your email for a confirmation link before logging in.';
+    }
+}
+
+async function loginCustomer() {
+    const email = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const message = document.getElementById('auth-message');
+
+    if (!email || !password) {
+        message.textContent = 'Enter your email and password.';
+        return;
+    }
+
+    message.textContent = 'Signing in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+        message.textContent = error.message;
+        return;
+    }
+
+    message.textContent = 'Login successful!';
+    closeModal();
+    showDashboard();
+}
