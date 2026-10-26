@@ -137,10 +137,13 @@ async function registerCustomer() {
 
     message.textContent = 'Creating your account...';
 
-    const { data, error } = await supabaseClient.auth.signUp({
-        email: email,
-        password: password
-    });
+   const { data, error } = await supabaseClient.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+        emailRedirectTo: 'https://digass1.github.io/digital-assist-bw/'
+    }
+});
 
     if (error) {
         message.textContent = error.message;
