@@ -42,7 +42,7 @@ async function loadServices() {
         <div class="card">
             <h3>${service.name}</h3>
             <p>${service.description || ''}</p>
-            <button class="btn" onclick="chooseService('${service.name.replace(/'/g, "\\'")}', ${service.price})">
+            <button class="btn" onclick="chooseService(${service.id}, ${JSON.stringify(service.name)}, ${Number(service.price)})">
                 From P${Number(service.price).toFixed(2)}
             </button>
         </div>
@@ -51,12 +51,13 @@ async function loadServices() {
 
 loadServices();
 
-let selected={name:'',price:0};
+let selected={id:null,name:'',price:0};
 let orders=JSON.parse(localStorage.getItem('dabw_orders')||'[]');
 
-function chooseService(name,price){
- selected={name,price};
- openModal('order');
+function chooseService(id,name,price){
+    selected={id,name,price};
+    openModal('order');
+}
 }
 function openModal(type){
  const box=document.getElementById('modalbox');
