@@ -42,7 +42,7 @@ async function loadServices() {
         <div class="card">
             <h3>${service.name}</h3>
             <p>${service.description || ''}</p>
-            <button class="btn" onclick="chooseService(${service.id}, ${JSON.stringify(service.name)}, ${Number(service.price)})">
+            <button class="btn" onclick="chooseService(${service.id}, '${service.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}', ${Number(service.price)})">
                 From P${Number(service.price).toFixed(2)}
             </button>
         </div>
