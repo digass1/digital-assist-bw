@@ -58,7 +58,7 @@ function chooseService(id,name,price){
     selected={id,name,price};
     openModal('order');
 }
-}
+
 function openModal(type){
  const box=document.getElementById('modalbox');
  if(type==='order'){
