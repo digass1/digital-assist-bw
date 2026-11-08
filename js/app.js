@@ -96,7 +96,7 @@ if(type==='login'){
    </div>
 
    <p id="auth-message" class="muted" role="status"></p>
-
+   <p><a href="#" onclick="resetCustomerPassword(); return false;">Forgot Password?</a></p>
    <div class="actions">
      <button class="btn ghost" onclick="closeModal()">Cancel</button>
      <button class="btn ghost" onclick="registerCustomer()">Create account</button>
