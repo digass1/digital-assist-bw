@@ -184,3 +184,25 @@ async function loginCustomer() {
     closeModal();
     showDashboard();
 }
+async function resetCustomerPassword() {
+    const email = document.getElementById('auth-email').value.trim();
+    const message = document.getElementById('auth-message');
+
+    if (!email) {
+        message.textContent = 'Please enter your email address first.';
+        return;
+    }
+
+    message.textContent = 'Sending password reset email...';
+
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin
+    });
+
+    if (error) {
+        message.textContent = error.message;
+        return;
+    }
+
+    message.textContent = 'Password reset email sent. Please check your inbox.';
+}
