@@ -196,7 +196,7 @@ async function resetCustomerPassword() {
     message.textContent = 'Sending password reset email...';
 
     const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin
+        redirectTo: 'https://digass1.github.io/digital-assist-bw/'
     });
 
     if (error) {
